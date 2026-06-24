@@ -1,154 +1,157 @@
-# 簡化版 - 測試報表生成（獨立運行）
+# Simple test - Generate mock report (standalone)
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import os
 
 def generate_mock_stock_data():
-    """生成模擬股票數據"""
+    """Generate mock stock data"""
     mock_stocks = [
         {
-            '股票代碼': '2330',
-            '股票名稱': '台積電',
-            '收盤價': 892.50,
-            '布林上軌': 880.25,
-            '布林中線': 850.00,
-            '布林下軌': 819.75,
-            '8均線': 885.30,
-            '成交量(張)': 35420,
-            '大戶持倉增加(張)': 2150,
-            '昨日成交量': 31200,
-            '漲跌幅(%)': 2.45,
+            'stock_code': '2330',
+            'stock_name': 'TSMC',
+            'close_price': 892.50,
+            'bb_upper': 880.25,
+            'bb_middle': 850.00,
+            'bb_lower': 819.75,
+            'ema8': 885.30,
+            'volume': 35420,
+            'major_holder_increase': 2150,
+            'yesterday_volume': 31200,
+            'price_change': 2.45,
         },
         {
-            '股票代碼': '2454',
-            '股票名稱': '聯發科',
-            '收盤價': 1156.00,
-            '布林上軌': 1140.50,
-            '布林中線': 1100.00,
-            '布林下軌': 1059.50,
-            '8均線': 1150.80,
-            '成交量(張)': 12850,
-            '大戶持倉增加(張)': 1520,
-            '昨日成交量': 10300,
-            '漲跌幅(%)': 1.85,
+            'stock_code': '2454',
+            'stock_name': 'MediaTek',
+            'close_price': 1156.00,
+            'bb_upper': 1140.50,
+            'bb_middle': 1100.00,
+            'bb_lower': 1059.50,
+            'ema8': 1150.80,
+            'volume': 12850,
+            'major_holder_increase': 1520,
+            'yesterday_volume': 10300,
+            'price_change': 1.85,
         },
         {
-            '股票代碼': '2412',
-            '股票名稱': '中華電',
-            '收盤價': 140.50,
-            '布林上軌': 138.20,
-            '布林中線': 132.00,
-            '布林下軌': 125.80,
-            '8均線': 139.60,
-            '成交量(張)': 3450,
-            '大戶持倉增加(張)': 1200,
-            '昨日成交量': 2100,
-            '漲跌幅(%)': 3.20,
+            'stock_code': '2412',
+            'stock_name': 'Chunghwa Telecom',
+            'close_price': 140.50,
+            'bb_upper': 138.20,
+            'bb_middle': 132.00,
+            'bb_lower': 125.80,
+            'ema8': 139.60,
+            'volume': 3450,
+            'major_holder_increase': 1200,
+            'yesterday_volume': 2100,
+            'price_change': 3.20,
         },
         {
-            '股票代碼': '3008',
-            '股票名稱': '聯詠',
-            '收盤價': 685.00,
-            '布林上軌': 670.30,
-            '布林中線': 640.00,
-            '布林下軌': 609.70,
-            '8均線': 680.50,
-            '成交量(張)': 4520,
-            '大戶持倉增加(張)': 1800,
-            '昨日成交量': 2800,
-            '漲跌幅(%)': 2.15,
+            'stock_code': '3008',
+            'stock_name': 'Novatek',
+            'close_price': 685.00,
+            'bb_upper': 670.30,
+            'bb_middle': 640.00,
+            'bb_lower': 609.70,
+            'ema8': 680.50,
+            'volume': 4520,
+            'major_holder_increase': 1800,
+            'yesterday_volume': 2800,
+            'price_change': 2.15,
         },
         {
-            '股票代碼': '2303',
-            '股票名稱': '聯電',
-            '收盤價': 61.20,
-            '布林上軌': 59.80,
-            '布林中線': 57.50,
-            '布林下軌': 55.20,
-            '8均線': 60.80,
-            '成交量(張)': 42150,
-            '大戶持倉增加(張)': 2300,
-            '昨日成交量': 38900,
-            '漲跌幅(%)': 1.65,
+            'stock_code': '2303',
+            'stock_name': 'UMC',
+            'close_price': 61.20,
+            'bb_upper': 59.80,
+            'bb_middle': 57.50,
+            'bb_lower': 55.20,
+            'ema8': 60.80,
+            'volume': 42150,
+            'major_holder_increase': 2300,
+            'yesterday_volume': 38900,
+            'price_change': 1.65,
         },
     ]
     return mock_stocks
 
 def test_report_generation():
-    """測試報表生成"""
+    """Test report generation"""
     print("\n" + "="*100)
-    print("台灣股票過濾程式 - 本地測試（簡化版）")
+    print("Taiwan Stock Filter - Local Test (Simplified)")
     print("="*100)
-    print(f"\n執行時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+    print(f"\nExecution Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
     
-    # 建立輸出目錄
+    # Create output directory
     if not os.path.exists("reports"):
         os.makedirs("reports")
     
-    # 生成模擬數據
-    print("📊 生成模擬股票數據...")
+    # Generate mock data
+    print("Generating mock stock data...")
     mock_stocks = generate_mock_stock_data()
     
     for stock in mock_stocks:
-        print(f"  ✓ {stock['股票代碼']} ({stock['股票名稱']}) - 收盤價 {stock['收盤價']}")
+        print(f"  OK {stock['stock_code']} ({stock['stock_name']}) - Close {stock['close_price']}")
     
-    # 轉換為 DataFrame
-    print("\n📈 生成數據表...")
+    # Convert to DataFrame
+    print("\nGenerating data table...")
     df = pd.DataFrame(mock_stocks)
-    print(f"  ✓ 成功生成 {len(df)} 行數據")
+    print(f"  OK Generated {len(df)} rows")
     
-    # 按收盤價降序排列
-    df = df.sort_values('收盤價', ascending=False)
+    # Sort by close price descending
+    df = df.sort_values('close_price', ascending=False)
     
-    # 保存 Excel
-    print("\n💾 保存 Excel 報表...")
+    # Save Excel
+    print("\nSaving Excel report...")
     execution_time = datetime.now()
-    excel_filename = f"tests_report_{execution_time.strftime('%Y%m%d_%H%M%S')}.xlsx"
+    excel_filename = f"test_report_{execution_time.strftime('%Y%m%d_%H%M%S')}.xlsx"
     excel_path = os.path.join("reports", excel_filename)
     
     try:
-        df.to_excel(excel_path, index=False, sheet_name='過濾結果')
+        df.to_excel(excel_path, index=False, sheet_name='Results')
         file_size = os.path.getsize(excel_path) / 1024
-        print(f"  ✓ Excel 報表已保存")
-        print(f"    路徑: {excel_path}")
-        print(f"    大小: {file_size:.1f} KB")
+        print(f"  OK Excel report saved")
+        print(f"    Path: {excel_path}")
+        print(f"    Size: {file_size:.1f} KB")
     except ImportError:
-        print(f"  ⚠ 需要安裝 openpyxl，執行: pip install openpyxl")
+        print(f"  WARNING Need openpyxl: pip install openpyxl")
+        excel_path = None
+    except Exception as e:
+        print(f"  ERROR Save Excel failed: {e}")
         excel_path = None
     
-    # 保存 CSV
-    print("\n💾 保存 CSV 報表...")
+    # Save CSV
+    print("\nSaving CSV report...")
     csv_filename = f"test_report_{execution_time.strftime('%Y%m%d_%H%M%S')}.csv"
     csv_path = os.path.join("reports", csv_filename)
     
     try:
         df.to_csv(csv_path, index=False, encoding='utf-8-sig')
         file_size = os.path.getsize(csv_path) / 1024
-        print(f"  ✓ CSV 報表已保存")
-        print(f"    路徑: {csv_path}")
-        print(f"    大小: {file_size:.1f} KB")
+        print(f"  OK CSV report saved")
+        print(f"    Path: {csv_path}")
+        print(f"    Size: {file_size:.1f} KB")
     except Exception as e:
-        print(f"  ✗ 保存 CSV 失敗: {e}")
+        print(f"  ERROR Save CSV failed: {e}")
         csv_path = None
     
-    # 顯示報表內容
+    # Display report content
     print("\n" + "="*100)
-    print("報表內容")
+    print("Report Content")
     print("="*100)
-    print(f"\n程式執行時間: {execution_time.strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"數據撈取時間: {execution_time.strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"掃描範圍: 台灣電子類股")
-    print(f"數據來源: Google Finance / Yahoo Finance")
-    print(f"符合條件股票數: {len(df)} 檔\n")
+    print(f"\nExecution Time: {execution_time.strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"Data Fetch Time: {execution_time.strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"Scan Range: Taiwan Electronics Stocks")
+    print(f"Data Source: Google Finance / Yahoo Finance")
+    print(f"Matched Stocks: {len(df)} stocks\n")
     
-    print("過濾結果:")
+    print("Filter Results:")
     print(df.to_string(index=False))
     
     print("\n" + "="*100)
-    print("✓ 測試完成！")
+    print("Test Complete!")
     print("="*100)
-    print(f"\n📁 報表位置:")
+    print(f"\nReport Locations:")
     if excel_path:
         print(f"  - Excel: {os.path.abspath(excel_path)}")
     if csv_path:
